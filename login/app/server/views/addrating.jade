@@ -25,10 +25,10 @@ body
 // store the userId on the client side in a hidden input field //
 input(type='hidden', value= user._id)#userId
 
-#menu-form-container
-    form( method="post")#menu-form.form-horizontal.well.span6
+#ratings-form-container
+    form( method="post")#ratings-form.form-horizontal.well.span6
         h1
-        p#sub1.subheading Please tell us a little about your restaurant.
+        p#sub1.subheading Please give a rating.
         hr
         fieldset
             #dish-cg.control-group
@@ -38,7 +38,7 @@ input(type='hidden', value= user._id)#userId
             #rating-cg.control-group
                 label.control-label(for='rating-tf') Rating
                 .controls
-                    input#rating-tf.input-xlarge(type='text', name='rating', value= user.rating)
+                    input#rating-tf.input-xlarge(type='range', name='rating', min=1, max=10, value= user.rating)
             #comments-cg.control-group
                 label.control-label(for='comments-tf') Comments
                 .controls

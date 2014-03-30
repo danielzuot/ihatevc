@@ -12,13 +12,11 @@ block content
                         th(style='width:20px')
                         th(style='width:100px') Dish
                         th(style='width:150px') Ratings
-                        th(style='width:150px') ??
-                        th(style='width:40px') ??
+                        th(style='width:150px') Comments
                 tbody
                 - for (var i = 0; i < usrs.length; i++)
                     tr
                         td= i+1
                         td= rates[i].name
                         td= rates[i].rating
-                        td= rates[i].tags
-                        td= rates[i].allergies
+                        td= rates[i].commments

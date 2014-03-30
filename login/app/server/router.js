@@ -32,6 +32,14 @@ module.exports = function(app) {
 					res.render('login', { title: 'Hello - Please Login To Your Account' });
 				}
 			});
+			AM.userAutoLogin(req.cookies.user, req.cookies.pass, function(o){
+				if (o != null){
+				    req.session.user = o;
+					res.redirect('/home');
+				}	else{
+					res.render('userlogin', { title: 'Hello - Please Login To Your Account' });
+				}
+			});
 		}
 
 	});
@@ -85,9 +93,9 @@ module.exports = function(app) {
 			AM.userAutoLogin(req.cookies.user, req.cookies.pass, function(o){
 				if (o != null){
 				    req.session.user = o;
-					res.redirect('/home');
+					res.redirect('/editprofile');
 				}	else{
-					res.render('login', { title: 'Hello - Please Login To Your Account' });
+					res.render('userlogin', { title: 'Hello - Please Login To Your Account' });
 				}
 			});
 		}
@@ -224,6 +232,31 @@ module.exports = function(app) {
 		}
 	});
 	
+
+
+    app.get('/addrating', function(req, res) {
+        if (req.session.user == null){
+    // if user is not logged-in redirect back to login page //
+            res.redirect('/userlogin');
+        }   else{
+            res.render('addrating', {
+                title : 'Control Panel',
+                dishes : DT,
+                udata : req.session.user
+            });
+        }
+    });
+    
+    app.post('/addrating', function(req, res){
+        if (req.param('user') != undefined) {
+            AM.addrating({
+                dish        : req.param('dish'),
+                rating      : req.param('rating'),
+                comments    : req.param('comments')
+            })
+        }
+    });
+
 // creating new accounts //
 	
 	app.get('/signup', function(req, res) {
@@ -365,6 +398,11 @@ module.exports = function(app) {
 			}
 	    });
 	});
+
+	app.get('/samplemenu', function(req, res) {
+		res.render('samplemenu', {  title: 'Sample Menu'});
+	});
+	
 	
 	app.get('/reset', function(req, res) {
 		AM.delAllRecords(function(){

@@ -278,7 +278,7 @@ exports.updateUser = function(newData, callback)
 }
 
 
-exports.updatePassword = function(email, newPass, callback)
+exports.updateUserPassword = function(email, newPass, callback)
 {
 	users.findOne({email:email}, function(e, o){
 		if (e){
@@ -294,17 +294,17 @@ exports.updatePassword = function(email, newPass, callback)
 
 /* account lookup methods */
 
-exports.deleteAccount = function(id, callback)
+exports.deleteUserAccount = function(id, callback)
 {
 	users.remove({_id: getObjectId(id)}, callback);
 }
 
-exports.getAccountByEmail = function(email, callback)
+exports.getUserByEmail = function(email, callback)
 {
 	users.findOne({email:email}, function(e, o){ callback(o); });
 }
 
-exports.validateResetLink = function(email, passHash, callback)
+exports.validateUserResetLink = function(email, passHash, callback)
 {
 	users.find({ $and: [{email:email, pass:passHash}] }, function(e, o){
 		callback(o ? 'ok' : null);
