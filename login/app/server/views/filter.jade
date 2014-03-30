@@ -10,6 +10,7 @@ block content
                     th(style='width:180px') Menu Item
                     th(style='width:200px') Type
                     th(style='width:200px') Allergies
+                    th(style='width:200px') 
                     
                        
             tbody
@@ -19,4 +20,6 @@ block content
                     td= menus[i].dish
                     td= menus[i].type
                     td= menus[i].allergies
+                    td 
+                        img(src= "/uploads/fullsize/" + menus[i].dish + ".jpg")
                     

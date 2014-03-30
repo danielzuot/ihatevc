@@ -9,6 +9,15 @@ module.exports = function(app) {
 
 // main login page //
 
+	app.get('/uploads/fullsize/:file', function (req, res){
+	file = req.params.file;
+	var img = fs.readFileSync(__dirname + "/uploads/fullsize/" + file);
+	res.writeHead(200, {'Content-Type': 'image/jpg' });
+	res.end(img, 'binary');
+
+	});
+
+
 	app.get('/', function(req, res){
 	// check if the user's credentials are saved in a cookie //
 		if (req.cookies.user == undefined || req.cookies.pass == undefined){
@@ -379,20 +388,22 @@ module.exports = function(app) {
 
 		});
 
-
+		console.log(req.files.image.path);
 		fs.readFile(req.files.image.path, function(err,data){
-		   	var imageName = req.param.dish;
+		   	var imageName = req.param("dish");
 
 		    if (!imageName){
 		    	console.log("Error");
 		    	res.end();
 
 		    }
-		    var newPath = __dirname+ "uploads/fullsize/" + imageName;
-		    console.log("Success");
+		    var newPath = __dirname+ "/uploads/fullsize/"+imageName+".jpg";
+		    
 		    fs.writeFile(newPath, data, function (err){
-		    	
+		    	console.log(err);
 		    });
+
+		    console.log(newPath);
 		});
 
 	});
