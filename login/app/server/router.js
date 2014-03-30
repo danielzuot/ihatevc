@@ -3,6 +3,7 @@ var CT = require('./modules/country-list');
 var DT = require('./modules/dish-list');
 var AM = require('./modules/account-manager');
 var EM = require('./modules/email-dispatcher');
+var fs = require('fs');
 
 module.exports = function(app) {
 
@@ -338,7 +339,8 @@ module.exports = function(app) {
 	});
 	
 	app.get('/filter', function(req, res) {
-		AM.getAllDishes( function(e, menu){
+		var restname = req.param("restname");
+		AM.getAllDishes(restname,function(e, menu){
 			res.render('filter', { title : 'Menu List', menus : menu });
 		})
 	});
@@ -363,22 +365,35 @@ module.exports = function(app) {
 	
 	app.get('*', function(req, res) { res.render('404', { title: 'Page Not Found'}); });
 
-	app.post('/uploadimg', function(req,res){
-	  fs.readFile(req.files.image.path, function(err,data){
-	    var imageName = req.param.dish;
+	app.post('/uploadDish', function(req,res){
+		var newData = {
+			dish 		: 	req.param("dish"),
+			type		: 	req.param("type"),
+			tags		: 	req.param("tags"),
+			allergies	: 	req.param("allergies"),
+			restname	: 	req.param("restname")    
+		};
 
-	    if (!imageName){
-	    	console.log("Error");
-	    	res.redirect('/login');
-	    	res.end();
+		AM.updateMenu(newData,function(){
+			res.redirect('/filter/?restname='+req.param("restname"));
 
-	    }
-	    var newPath = __dirname+ "uploads/fullsize/" + imageName;
-	    console.log("Success");
-	    fs.writeFile(newPath, data, function (err){
-	    	res.redirect("/uploads/fullsize/" + imageName);
-	    });
-	  });
+		});
+
+
+		fs.readFile(req.files.image.path, function(err,data){
+		   	var imageName = req.param.dish;
+
+		    if (!imageName){
+		    	console.log("Error");
+		    	res.end();
+
+		    }
+		    var newPath = __dirname+ "uploads/fullsize/" + imageName;
+		    console.log("Success");
+		    fs.writeFile(newPath, data, function (err){
+		    	
+		    });
+		});
 
 	});
 

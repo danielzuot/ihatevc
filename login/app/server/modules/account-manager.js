@@ -109,12 +109,12 @@ exports.updateAccount = function(newData, callback)
 
 exports.updateMenu = function(newData, callback)
 {
-	accounts.findOne({user:newData.user}, function(e, o){
-		o.restid 	= newData.restid;
-		o.dish 		= newData.dish;
-		o.type		= newData.type;
-		o.tags		= newData.tags;
-		o.allergies = newData.allergies;
+	menu.insert(newData, function(e,o){
+		if (e){
+			callback(e);
+		}
+		else
+			callback(null,o);
 	});
 }
 
@@ -184,9 +184,10 @@ exports.getAllRatings = function(callback)
 	});
 };
 
-exports.getAllDishes = function(callback)
+exports.getAllDishes = function(restname, callback)
 {
-	menu.find().toArray(
+
+	menu.find({restname:restname}).toArray(
 		function(e, res) {
 		if (e) callback(e)
 		else callback(null, res)
