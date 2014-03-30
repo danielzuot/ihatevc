@@ -31,7 +31,8 @@ $(document).ready(function(){
     $('#menu-form h1').text('Menu Settings');
     $('#menu-form #sub1').text('Here are the current settings for your account.');
     $('#user-tf').attr('disabled', 'disabled');
-    $('#menu-form-btn3').html('Menu');
+    $('#menu-form-btn3').html('Add Dish');
+    $('#menu-form-btn4').html('View Menu');
     $('#menu-form-btn1').html('Delete');
     $('#menu-form-btn1').addClass('btn-danger');
     $('#menu-form-btn2').html('Update');
