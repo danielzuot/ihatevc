@@ -26,9 +26,9 @@ body
 input(type='hidden', value= user._id)#userId
 
 #ratings-form-container
-    form( method="post")#ratings-form.form-horizontal.well.span6
+    form( method="post", action="/uploadrating")#ratings-form.form-horizontal.well.span6
         h1
-        p#sub1.subheading Please give a rating.
+        p#sub1.subheading Please give a rating for the dish you ate recently!
         hr
         fieldset
             #dish-cg.control-group
@@ -38,18 +38,14 @@ input(type='hidden', value= user._id)#userId
             #rating-cg.control-group
                 label.control-label(for='rating-tf') Rating
                 .controls
-                    input#rating-tf.input-xlarge(type='range', name='rating', min=1, max=10, value= user.rating)
+                    input#rating-tf.slider(type='range', name='rating', min=1, max=10, value= user.rating)
             #comments-cg.control-group
                 label.control-label(for='comments-tf') Comments
                 .controls
                     input#comments-tf.input-xlarge(type='text', name='comments', value= user.comments)
             hr
             .form-actions
-                button(type='submit' )#menu-form-btn2.btn Submit
-    form( method="post", action="/uploadimg", enctype="multipart/form-data")
-        input(type="file", name="image")
-            .form-actions
-                button(type='submit')#menu-form-btn2.btn
+                button(type='submit' )#menu-form-btn2.btn.btn-warning Submit
 
 // display form errors in a custom modal window //
 

@@ -412,6 +412,20 @@ module.exports = function(app) {
 	
 	app.get('*', function(req, res) { res.render('404', { title: 'Page Not Found'}); });
 
+
+	app.post('/uploadrating', function(req,res){
+		var newData = {
+			dish 		: 	req.param("dish"),
+			rating		: 	req.param("rating"),
+			comments		: 	req.param("comments"),  
+		};
+
+		AM.addRating(newData,function(){
+			res.redirect('/editprofile');
+		});
+	});
+
+
 	app.post('/uploadDish', function(req,res){
 		var newData = {
 			dish 		: 	req.param("dish"),
