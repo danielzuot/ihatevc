@@ -19,9 +19,10 @@ block content
 						th(style='width:80px') Menu
 				tbody
 				- for (var i = 0; i < accts.length; i++)
-					tr
+					tr 
 						td= i+1
-						td= accts[i].restname
+						td
+							a(href="/filter/?restname=" + accts[i].restname) #{accts[i].restname}
 						td= accts[i].address
 						td= accts[i].city
 						td= accts[i].state
