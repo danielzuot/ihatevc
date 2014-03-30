@@ -132,11 +132,11 @@ exports.updatePassword = function(email, newPass, callback)
 	});
 }
 
-exports.addRating = function(newData, callback)
-{
-	ratings.insert("hi":1
-		)});
-}
+// exports.addRating = function(newData, callback)
+// {
+// 	ratings.insert("hi":1
+// 		)});
+// }
 
 /* account lookup methods */
 
