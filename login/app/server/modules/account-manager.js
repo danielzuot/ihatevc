@@ -132,11 +132,16 @@ exports.updatePassword = function(email, newPass, callback)
 	});
 }
 
-// exports.addRating = function(newData, callback)
-// {
-// 	ratings.insert("hi":1
-// 		)});
-// }
+exports.addRating = function(newData, callback)
+{
+	ratings.insert(newData, function(e,o){
+		if (e){
+			callback(e);
+		}
+		else
+			callback(null,o);
+	});
+}
 
 /* account lookup methods */
 

@@ -49,11 +49,13 @@ input(type='hidden', value= user.restname)#restname
                 label.control-label(for='allergies-tf') Allergies
                 .controls
                     input#allergies-tf.input-xlarge(type='text', name='allergies', value= user.allergies)
-            hr
-            input(type="file", name="image")
-            input(type="hidden", name="restname",value=user.restname)
+            #pic-cg.control-group
+                label.control-label(for='pic-tf') Picture
+                .controls
+                input(type="file", name="image")
+                input(type="hidden", name="restname",value=user.restname)
             .form-actions
-                button(type='submit' )#menu-form-btn2.btn Submit
+                button(type='submit' )#menu-form-btn2.btn.btn-warning Submit
         
 
 // display form errors in a custom modal window //

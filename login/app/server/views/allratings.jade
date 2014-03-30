@@ -14,9 +14,9 @@ block content
                         th(style='width:150px') Ratings
                         th(style='width:150px') Comments
                 tbody
-                - for (var i = 0; i < usrs.length; i++)
+                - for (var i = 0; i < rates.length; i++)
                     tr
                         td= i+1
-                        td= rates[i].name
+                        td= rates[i].dish
                         td= rates[i].rating
                         td= rates[i].commments
