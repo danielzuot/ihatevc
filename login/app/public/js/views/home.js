@@ -32,7 +32,8 @@ $(document).ready(function(){
 	$('#account-form h1').text('Restaurant Settings');
 	$('#account-form #sub1').text('Here are the current settings for your restaurant.');
 	$('#user-tf').attr('disabled', 'disabled');
-	$('#account-form-btn3').html('Menu');
+	$('#account-form-btn4').html('View Menu');
+	$('#account-form-btn3').html('Add Dish');
 	$('#account-form-btn1').html('Delete');
 	$('#account-form-btn1').addClass('btn-danger');
 	$('#account-form-btn2').html('Update');

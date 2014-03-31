@@ -18,29 +18,39 @@ module.exports = function(app) {
 	});
 
 
+
+	app.get('/admin', function(req, res){
+		res.render('admin', { title: 'Admin Console' });
+	});
+
+	app.get('/thelonius', function(req, res){
+		res.render('thelonius', { title: 'Thelonius' });
+	});
+
 	app.get('/', function(req, res){
 	// check if the user's credentials are saved in a cookie //
-		if (req.cookies.user == undefined || req.cookies.pass == undefined){
-			res.render('index', { title: 'Hello - Please Login To Your Account' });
-		}	else{
-	// attempt automatic login //
-			AM.autoLogin(req.cookies.user, req.cookies.pass, function(o){
-				if (o != null){
-				    req.session.user = o;
-					res.redirect('/home');
-				}	else{
-					res.render('login', { title: 'Hello - Please Login To Your Account' });
-				}
-			});
-			AM.userAutoLogin(req.cookies.user, req.cookies.pass, function(o){
-				if (o != null){
-				    req.session.user = o;
-					res.redirect('/home');
-				}	else{
-					res.render('userlogin', { title: 'Hello - Please Login To Your Account' });
-				}
-			});
-		}
+	// 	if (req.cookies.user == undefined || req.cookies.pass == undefined){
+	// 		res.render('index', { title: 'Hello - Please Login To Your Account' });
+	// 	}	else{
+	// // attempt automatic login //
+	// 		AM.autoLogin(req.cookies.user, req.cookies.pass, function(o){
+	// 			if (o != null){
+	// 			    req.session.user = o;
+	// 				res.redirect('/home');
+	// 			}	else{
+	// 				res.render('login', { title: 'Hello - Please Login To Your Account' });
+	// 			}
+	// 		});
+	// 		AM.userAutoLogin(req.cookies.user, req.cookies.pass, function(o){
+	// 			if (o != null){
+	// 			    req.session.user = o;
+	// 				res.redirect('/home');
+	// 			}	else{
+	// 				res.render('userlogin', { title: 'Hello - Please Login To Your Account' });
+	// 			}
+	// 		});
+	// 	}
+		res.render('index', { title: 'Hello - Please Login To Your Account' });
 
 	});
 
@@ -85,20 +95,21 @@ module.exports = function(app) {
 	});
 
 	app.get('/userlogin', function(req, res){
-	// check if the user's credentials are saved in a cookie //
-		if (req.cookies.user == undefined || req.cookies.pass == undefined){
-			res.render('userlogin', { title: 'Hello - Please Login To Your Account' });
-		}	else{
-	// attempt automatic login //
-			AM.userAutoLogin(req.cookies.user, req.cookies.pass, function(o){
-				if (o != null){
-				    req.session.user = o;
-					res.redirect('/editprofile');
-				}	else{
-					res.render('userlogin', { title: 'Hello - Please Login To Your Account' });
-				}
-			});
-		}
+	// // check if the user's credentials are saved in a cookie //
+	// 	if (req.cookies.user == undefined || req.cookies.pass == undefined){
+	// 		res.render('userlogin', { title: 'Hello - Please Login To Your Account' });
+	// 	}	else{
+	// // attempt automatic login //
+	// 		AM.userAutoLogin(req.cookies.user, req.cookies.pass, function(o){
+	// 			if (o != null){
+	// 			    req.session.user = o;
+	// 				res.redirect('/editprofile');
+	// 			}	else{
+	// 				res.render('userlogin', { title: 'Hello - Please Login To Your Account' });
+	// 			}
+	// 		});
+	// 	}
+		res.render('userlogin', { title: 'Hello - Please Login To Your Account' });
 	});
 	
 	app.post('/userlogin', function(req, res){
@@ -211,7 +222,7 @@ module.exports = function(app) {
 	app.get('/menu', function(req, res) {
 	    if (req.session.user == null){
 	// if user is not logged-in redirect back to login page //
-	        res.redirect('/userlogin');
+	        res.redirect('/login');
 	    }   else{
 			res.render('menu', {
 				title : 'Control Panel',
@@ -227,7 +238,8 @@ module.exports = function(app) {
 				dish 		: req.param('dish'),
 				type 		: req.param('type'),
 				tags 		: req.param('tags'),
-				allergies 	: req.param('allergies')
+				allergies 	: req.param('allergies'),
+				rating		: 'N/A'
 			})
 		}
 	});
@@ -387,6 +399,13 @@ module.exports = function(app) {
 		})
 	});
 
+	app.get('/viewmenu', function(req, res) {
+		var restname = req.param("restname");
+		AM.getAllDishes(restname,function(e, menu){
+			res.render('viewmenu', { title : 'Menu List', menus : menu });
+		})
+	});
+
 	app.post('/delete', function(req, res){
 		AM.deleteAccount(req.body.id, function(e, obj){
 			if (!e){
@@ -417,7 +436,7 @@ module.exports = function(app) {
 		var newData = {
 			dish 		: 	req.param("dish"),
 			rating		: 	req.param("rating"),
-			comments		: 	req.param("comments"),  
+			comments	: 	req.param("comments"),  
 		};
 
 		AM.addRating(newData,function(){
@@ -436,7 +455,7 @@ module.exports = function(app) {
 		};
 
 		AM.updateMenu(newData,function(){
-			res.redirect('/filter/?restname='+req.param("restname"));
+			res.redirect('/viewmenu/?restname='+req.param("restname"));
 
 		});
 

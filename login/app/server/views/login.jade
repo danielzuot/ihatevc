@@ -2,6 +2,15 @@
 extends layout
 
 block content
+	div.navbar.navbar-fixed-top
+		div.navbar-inner
+			div.container-fluid
+				ul#global-nav.nav.pull-left
+					a(href='#').brand
+				button#btn-logout.btn.btn-primary
+					a(href='/')#signoutlink
+						i.icon-home.icon-white
+						| Home
 	#login-container
 		form( method="post")#login-form.well.span4
 			h1 Hello Restaurant!

@@ -139,8 +139,11 @@ exports.addRating = function(newData, callback)
 			callback(e);
 		}
 		else
+			// menu.update({"dish":newData.dish}, {"rating":ratings.aggregate({"$group": {rating: {$avg:"$rating"}}})});
+			// console.log(menu.find(rating));
 			callback(null,o);
 	});
+
 }
 
 /* account lookup methods */

@@ -3,7 +3,7 @@ extends layout
 
 block content
 
-	div.container(style='margin:20px')
+	div.container(style='margin:80px')
 		form(method='get', action='/')
 			button.btn.btn-default.btn-warning BACK
 		table.table.table-bordered.table-striped
@@ -16,7 +16,6 @@ block content
 						th(style='width:40px') State
 						th(style='width:60px') Zip
 						th(style='width:80px') Country
-						th(style='width:80px') Menu
 				tbody
 				- for (var i = 0; i < accts.length; i++)
 					tr 
@@ -28,4 +27,10 @@ block content
 						td= accts[i].state
 						td= accts[i].zip
 						td= accts[i].country
-						td Menu
+	div.navbar.navbar-fixed-top#index
+		div.navbar-inner
+			div.container-fluid
+			a(href='login')
+				button.btn-logout.btn.btn-warning#loginbtn RESTAURANT
+			a(href='userlogin')
+				button.btn-logout.btn.btn-warning#loginbtn USER

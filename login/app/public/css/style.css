@@ -118,6 +118,16 @@ body {
   float: right;
   font-family: "Quicksand-Regular";
 }
+#signoutlink {
+  color: #fff;
+  text-decoration: none;
+}
+#topcontainer {
+  margin-top: 30px;
+}
+#middlecontainer {
+  margin-top: 100px;
+}
 .modal-single-input {
   width: 452px;
   margin: -200px 0 0 -232px;
@@ -178,7 +188,7 @@ body {
   margin-left: 120px;
 }
 .form-horizontal .form-actions {
-  padding-right: 0px;
+  padding-left: 0px;
   margin: 0px auto;
 }
 label {
